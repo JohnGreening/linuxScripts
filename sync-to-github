@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# === Paths ===
+SOURCE_DIR="/home/john/dev/next-test"
+TARGET_DIR="/home/john/dev/git/PogoPaul"
+
+echo "Syncing files from $SOURCE_DIR to $TARGET_DIR..."
+
+# === Step 1: Copy source files ===
+cp "$SOURCE_DIR/pogopaul.asm" "$TARGET_DIR/"
+cp "$SOURCE_DIR/im2Routine.inc" "$TARGET_DIR/"
+cp "$SOURCE_DIR/myMacros.inc" "$TARGET_DIR/"
+cp "$SOURCE_DIR/globals.inc" "$TARGET_DIR/"
+cp "$SOURCE_DIR/initialisation.inc" "$TARGET_DIR/"
+cp "$SOURCE_DIR/utilities.inc" "$TARGET_DIR/"
+cp "$SOURCE_DIR/textDisplay.inc" "$TARGET_DIR/"
+cp "$SOURCE_DIR/levelSetup.inc" "$TARGET_DIR/"
+cp "$SOURCE_DIR/ingameRoutines.inc" "$TARGET_DIR/"
+cp "$SOURCE_DIR/updateBalloons.inc" "$TARGET_DIR/"
+cp "$SOURCE_DIR/updatePaul.inc" "$TARGET_DIR/"
+cp "$SOURCE_DIR/tileCollision.inc" "$TARGET_DIR/"
+cp "$SOURCE_DIR/spriteCollision.inc" "$TARGET_DIR/"
+cp "$SOURCE_DIR/spriteDisplay.inc" "$TARGET_DIR/"
+cp "$SOURCE_DIR/soundEffects.inc" "$TARGET_DIR/"    
+cp "$SOURCE_DIR/melody.inc" "$TARGET_DIR/"    
+cp "$SOURCE_DIR/c.inc" "$TARGET_DIR/"
+cp "$SOURCE_DIR/c.stt" "$TARGET_DIR/"
+#cp "$SOURCE_DIR/build-next" "$TARGET_DIR/"  # optional, delete this line if you don't want to track it
+
+# === Step 2: Commit and push to GitHub ===
+cd "$TARGET_DIR" || exit 1
+git add .
+read -rp "Enter commit message: " commit_msg
+git commit -m "${commit_msg:-Auto-sync on $(date '+%F %T')}"
+git push
+
+echo "Sync complete."
