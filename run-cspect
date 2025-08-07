@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Make sure a filename is provided
+if [ -z "$1" ]; then
+  echo "Usage: run-cspect <game.nex>"
+  exit 1
+fi
+
+# Full path to CSpect and default flags
+CSPECT_PATH="/home/john/cspect/CSpect.exe"
+FLAGS="-next -tv -w4 -fullscreen"
+
+# Resolve full path of .nex file
+GAME_PATH="$(realpath "$1")"
+
+# Launch CSpect
+mono "$CSPECT_PATH" $FLAGS "$GAME_PATH"

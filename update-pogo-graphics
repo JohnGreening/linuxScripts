@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Step 1: Copy graphics include file
+echo "copying c.inc from /home/john/Downloads/spritedesign/ to /home/john/dev/next-test/"
+cp /home/john/Downloads/spritedesign/c.inc /home/john/dev/next-test/ || {
+    echo "Failed to copy c.inc"
+    exit 1
+}
+
+# Step 2: Copy graphics include file
+echo "copying c.stt from /home/john/Downloads/spritedesign/ to /home/john/dev/next-test/"
+cp /home/john/Downloads/spritedesign/c.stt /home/john/dev/next-test/ || {
+    echo "Failed to copy c.inc"
+    exit 1
+}
+
+# Step 3: Change to project directory
+echo "changing directory to /home/john/dev/next-test/"
+cd /home/john/dev/next-test || {
+    echo "Failed to change to /home/john/dev/next-test"
+    exit 1
+}
+
+# Step 4: Call build-next with pogopaul.asm
+echo "building .asm file"
+build-next pogopaul.asm
+
