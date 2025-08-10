@@ -5,6 +5,7 @@
 OPTIONS=(
     "Build PogoPaul|/home/john/dev/next-test|build-next pogopaul.asm"
     "Run CSpect Emulator|/home/john/dev/next-test|run-cspect pogopaul.nex"
+    "Run NextSprite Designer|/home/john/Downloads/spritedesign/|./NextSprite"
     "Update Graphics|/home/john/bin|update-pogo-graphics"
     "Sync to Github|/home/john/bin|sync-to-github"
 )
