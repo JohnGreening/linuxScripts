@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# === Configuration ===
+# Format: "Menu Title|Directory Path|Command to run"
+OPTIONS=(
+    "Build PogoPaul|/home/john/dev/pogopaul|build-next pogopaul.asm"
+    "Run CSpect Emulator|/home/john/dev/pogopaul|run-cspect pogopaul.nex"
+    "Run NextSprite Designer|/home/john/Downloads/spritedesign/|./NextSprite"
+    "Update Graphics|/home/john/bin|update-pogo-graphics"
+    "Sync to Github|/home/john/bin|sync-to-github"
+)
+
+while true; do
+    echo ""
+    echo "Select an option:"
+    for i in "${!OPTIONS[@]}"; do
+        name=$(echo "${OPTIONS[$i]}" | cut -d '|' -f1)
+        printf "%2d) %s\n" $((i + 1)) "$name"
+    done
+    printf "%2d) Exit\n" $(( ${#OPTIONS[@]} + 1 ))
+
+    read -rp "Enter choice [1-$(( ${#OPTIONS[@]} + 1 ))]: " choice
+
+    if ! [[ "$choice" =~ ^[0-9]+$ ]]; then
+        echo "Invalid input. Please enter a number."
+        continue
+    fi
+
+    if (( choice == ${#OPTIONS[@]} + 1 )); then
+        echo "Goodbye!"
+        exit 0
+    elif (( choice < 1 || choice > ${#OPTIONS[@]} )); then
+        echo "Invalid choice. Try again."
+        continue
+    fi
+
+    selected="${OPTIONS[$((choice - 1))]}"
+    target_dir=$(echo "$selected" | cut -d '|' -f2)
+    command_to_run=$(echo "$selected" | cut -d '|' -f3)
+
+    echo "Changing to: $target_dir"
+    cd "$target_dir" || { echo "Failed to change directory."; continue; }
+
+    echo "Running: $command_to_run"
+    eval "$command_to_run"
+done
+

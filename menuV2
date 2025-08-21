@@ -1,15 +1,17 @@
 #!/bin/bash
-# Project-aware dev menu (Option B: per-project sync script = "<key>-sync")
+# Project-aware dev menu
 
 set -u
 
 # =========================
 # Configure your projects
-# key|Display Name|Project Dir|ASM filename|NEX filename|Graphics update cmd
+# One line per project:
+#   key|Display Name|Project Dir|ASM filename|NEX filename|Graphics update cmd
 # =========================
 PROJECTS=(
   "pogopaul|Pogo Paul|/home/john/dev/pogopaul|pogopaul.asm|pogopaul.nex|update-pogo-graphics"
   "connect4|Connect 4|/home/john/dev/connect4|connect4.asm|connect4.nex|update-connect4-graphics"
+  # Add more like:
   # "myother|My Other Game|/home/john/dev/myother|myother.asm|myother.nex|update-myother-graphics"
 )
 
@@ -17,6 +19,7 @@ PROJECTS=(
 NEXTSPRITE_DIR="/home/john/Downloads/spritedesign"
 NEXTSPRITE_CMD="./NextSprite"
 BIN_DIR="/home/john/bin"
+SYNC_CMD="sync-to-github"
 
 # =========================
 # Internal storage
@@ -83,7 +86,7 @@ while true; do
   echo "  2) Run CSpect       (run-cspect $CUR_NEX)"
   echo "  3) Run NextSprite Designer"
   echo "  4) Update Graphics  ($CUR_GFX)"
-  echo "  5) Sync to Github   (${CUR_KEY}-sync)"
+  echo "  5) Sync to Github   ($SYNC_CMD)"
   echo "  6) Change Project"
   echo "  7) Exit"
 
@@ -104,16 +107,7 @@ while true; do
       run_in_dir "$BIN_DIR" "$CUR_GFX"
       ;;
     5)
-      # Per-project sync script named "<key>-sync", expected in $BIN_DIR (on PATH)
-      if command -v "${CUR_KEY}-sync" >/dev/null 2>&1; then
-        # If your sync script expects to run from BIN or from project dir, choose one:
-        # A) run from BIN (script handles paths itself):
-        run_in_dir "$BIN_DIR" "${CUR_KEY}-sync"
-        # B) or run from project dir (uncomment next two lines, comment A):
-        # run_in_dir "$CUR_DIR" "${CUR_KEY}-sync"
-      else
-        echo "ERROR: sync script '${CUR_KEY}-sync' not found on PATH (expected in $BIN_DIR)."
-      fi
+      run_in_dir "$BIN_DIR" "$SYNC_CMD"
       ;;
     6)
       pick_project

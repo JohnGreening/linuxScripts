@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# === Paths ===
+SOURCE_DIR="/home/john/dev/connect4"
+TARGET_DIR="/home/john/dev/git/connect4"
+
+echo "Syncing files from $SOURCE_DIR to $TARGET_DIR..."
+
+# === Step 1: Copy source files ===
+cp "$SOURCE_DIR/connect4.stt" "$TARGET_DIR/"
+cp "$SOURCE_DIR/connect4.inc" "$TARGET_DIR/"
+cp "$SOURCE_DIR/globals.inc" "$TARGET_DIR/"
+cp "$SOURCE_DIR/levelSetup.inc" "$TARGET_DIR/"
+cp "$SOURCE_DIR/utilities.inc" "$TARGET_DIR/"
+cp "$SOURCE_DIR/connect4.asm" "$TARGET_DIR/"
+
+# === Step 2: Commit and push to GitHub ===
+cd "$TARGET_DIR" || exit 1
+git add .
+read -rp "Enter commit message: " commit_msg
+git commit -m "${commit_msg:-Auto-sync on $(date '+%F %T')}"
+git push
+
+echo "Sync complete."

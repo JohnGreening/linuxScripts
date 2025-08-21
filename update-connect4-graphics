@@ -2,11 +2,11 @@
 
 # ====== Config (edit these) ======
 SRC_DIR="/home/john/Downloads/spritedesign"
-DEST_DIR="/home/john/dev/pogopaul"
+DEST_DIR="/home/john/dev/connect4"
 
-INC_FILE="c.inc"
-STT_FILE="c.stt"
-ASM_FILE="pogopaul.asm"
+INC_FILE="connect4.inc"
+STT_FILE="connect4.stt"
+ASM_FILE="connect4.asm"
 # ================================
 
 set -u
